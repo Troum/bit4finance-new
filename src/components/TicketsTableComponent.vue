@@ -1,14 +1,14 @@
 <template>
-    <b-col cols="10" class="mx-auto">
-        <b-row>
-            <b-col cols="5" offset="7">
-                <b-row>
-                    <b-col cols="6">
+    <b-col cols="12" xl="10" class="mx-auto p-0">
+        <b-row class="m-0 p-0">
+            <b-col cols="12" xl="5" offset-xl="7" class="p-0">
+                <b-row class="m-0 p-0">
+                    <b-col cols="4" xl="6">
                         <b-button variant="danger"
                                   class="b4f_button link float-right"
                                   @click="$bvModal.show('filterModal'); $root.$emit('filter-modal', items)">{{ $ml.get('table.buttons.filter') }}</b-button>
                     </b-col>
-                    <b-col cols="6">
+                    <b-col cols="8" xl="6">
                         <b-button variant="danger"
                                   class="b4f_button submit float-right"
                                   @click="$router.push({name: 'ticket'})">{{ $ml.get('table.buttons.newTicket') }}&nbsp;<font-awesome-icon :icon="['fas', 'plus']" /></b-button>
@@ -17,6 +17,8 @@
             </b-col>
         </b-row>
         <b-table-simple
+                class="p-xl-1"
+                responsive
                 borderless>
             <b-thead>
                 <tr>
@@ -101,11 +103,11 @@
         >
             <template v-slot:page>{{ pagination.current }} / {{ Math.ceil(items.length / pagination.perPage) }}</template>
         </b-pagination>
-        <b-row>
-            <b-col cols="1" class="mr-auto">
+        <b-row class="m-0 p-0">
+            <b-col cols="3" xl="1" class="mr-auto">
                 <small><strong>{{$ml.get('table.total')}}:</strong>&nbsp;{{ items.length }}</small>
             </b-col>
-            <b-col cols="1"
+            <b-col cols="3" xl="1"
                    class="ml-auto d-flex justify-content-end">
                 <b-dropdown size="sm" :text="`${pagination.perPage}`" class="b4f_dropdown small">
                     <b-dropdown-item @click="changePerPage(3)"><small>3</small></b-dropdown-item>

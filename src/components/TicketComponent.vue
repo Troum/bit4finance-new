@@ -112,13 +112,13 @@
             }
         },
         beforeMount(){
-            this.$httpService.get('api/v1/auth/person')
-                .then(response => {
-                    this.responsible.persons = [...response.data.persons];
-                })
-                .catch(error => {
-                    this.$handler.error(error);
-                });
+            // this.$httpService.get('api/v1/auth/person')
+            //     .then(response => {
+            //         this.responsible.persons = [...response.data.persons];
+            //     })
+            //     .catch(error => {
+            //         this.$handler.error(error);
+            //     });
         },
         methods: {
             chooseResponsible(index) {

@@ -30,13 +30,6 @@ Vue.use(FD);
 Vue.use(Snotify);
 Vue.use(Handler);
 Vue.use(columnSortable);
-Vue.use(require('vue-pusher'), {
-  api_key: `${process.env.VUE_APP_PUSHER_APP_KEY}`,
-  options: {
-    cluster: `${process.env.VUE_APP_PUSHER_APP_CLUSTER}`,
-    encrypted: true
-  }
-});
 Vue.config.productionTip = false;
 
 Vue.filter('formatDate', (date, lang) => {

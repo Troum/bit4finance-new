@@ -5,7 +5,7 @@
       <img class="b4f_logo" src="../assets/logowhite.png" alt="NorthITGroup HS">
     </b-col>
     <b-col cols="12" xl="6" class="b4f_login-container__right">
-      <validation-observer ref="login" v-click-outside="reset" class="w-75" v-slot="{ passes }">
+      <validation-observer ref="login" v-click-outside="reset" class="w-100 w-xl-75" v-slot="{ passes }">
         <b-form @submit.prevent="passes(submit)">
           <b-form-group>
             <div class="b4f_login-title">
@@ -22,7 +22,7 @@
               <b-form-input
                       autocomplete="off"
                       :class="[{'b4f_input' : true, 'invalid' : errors[0]}]"
-                      v-model="form.email"
+                      v-model="form.login"
                       type="text"
                       id="email"></b-form-input>
             </b-form-group>
@@ -68,7 +68,7 @@
       return {
         form: {
           password: null,
-          email:  null
+          login:  null
         }
       }
     },
@@ -77,17 +77,17 @@
         this.$refs.login.reset();
       },
       submit() {
-        this.$httpService.post('api/v1/auth/login', this.$formData.fill(this.form),{
+        this.$httpService.post('api/login', this.$formData.fill(this.form),{
           headers: {
             'Accept-Language': this.$ml.current
           }
         })
                 .then((response) => {
                   this.$store.commit('authenticate', response.headers['authorization']);
-                  this.$handler.success(response.data.success, null);
+                  this.$handler.success(`${response.data.success}, ${response.data.user.name}`, null);
                   this.$router.push({name: 'ticket'});
                 })
-                .catch((error) => {
+                .catch(error => {
                   this.$handler.error(error);
                 })
       }

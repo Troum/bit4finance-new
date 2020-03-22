@@ -1,6 +1,6 @@
 <template>
     <b-container fluid class="m-0 p-0" id="app">
-        <b-button-group :style="['position: absolute; z-index: 9999', $route.name === 'table' || $route.name === 'inbox' ? 'top: 3%; left: 4%;' : 'bottom: 4%; right: 4%;']">
+        <b-button-group :style="['position: absolute; z-index: 2', $route.name === 'table' || $route.name === 'inbox' ? 'top: 3%; left: 4%;' : 'bottom: 4%; right: 4%;']">
             <b-button type="button"
                       :class="['b4f_button link border-right', $route.name === 'ticket' || $route.name === 'admin' || $route.name === 'table' || $route.name === 'inbox' ? 'text-white' : '']"
                       @click="$ml.change('en');changeLocale()"
@@ -10,25 +10,29 @@
                       @click="$ml.change('de');changeLocale()"
                       variant="outline-primary">DE</b-button>
         </b-button-group>
-        <b-button variant="outline-primary"
-                  @click="logout"
-                  type="button" v-if="$store.getters.authenticate || $jwt.token()" class="b4f_logout-button">
-            <font-awesome-icon :icon="['fas', 'power-off']"/>
-            <span>&nbsp;&nbsp;{{ $ml.get('navButtons.logout') }}</span>
-        </b-button>
-        <b-button variant="outline-primary"
-                  @click="$route.name === 'inbox' ? $router.push({name: 'ticket'}) : $router.push({name: 'inbox'})"
-                  type="button" v-if="$store.getters.authenticate || $jwt.token() && !$jwt.isAdmin()" :class="[$route.name === 'inbox' ? 'b4f_inbox-button' : 'b4f_inbox-button inbox']">
-            <font-awesome-icon :icon="['fas', 'envelope']" v-if="$route.name !== 'inbox'"/>
-            <font-awesome-icon :icon="['fas', 'chevron-left']" v-if="$route.name == 'inbox'"/>
-            <span>&nbsp;&nbsp;{{ $route.name === 'inbox' ? $ml.get('navButtons.back') : $ml.get('navButtons.inbox') }}</span>
-        </b-button>
-        <b-button variant="outline-primary"
-                  @click="$router.push({name: 'table'})"
-                  type="button" v-if="$store.getters.authenticate || $jwt.token() && $jwt.isAdmin() && $route.name === 'ticket' " class="b4f_back-button">
-            <font-awesome-icon :icon="['fas', 'chevron-left']"/>
-            <span>&nbsp;&nbsp;{{ $ml.get('navButtons.table')}}</span>
-        </b-button>
+        <div class="b4f_buttons-container">
+            <div>
+<!--                <b-button variant="outline-primary"-->
+<!--                          @click="$route.name === 'inbox' ? $router.push({name: 'ticket'}) : $router.push({name: 'inbox'})"-->
+<!--                          type="button" v-if="$store.getters.authenticate || $jwt.token() && !$jwt.isAdmin()" :class="[$route.name === 'inbox' ? 'b4f_inbox-button' : 'b4f_inbox-button inbox']">-->
+<!--                    <font-awesome-icon :icon="['fas', 'envelope']" v-if="$route.name !== 'inbox'"/>-->
+<!--                    <font-awesome-icon :icon="['fas', 'chevron-left']" v-if="$route.name == 'inbox'"/>-->
+<!--                    <span>&nbsp;&nbsp;{{ $route.name === 'inbox' ? $ml.get('navButtons.back') : $ml.get('navButtons.inbox') }}</span>-->
+<!--                </b-button>-->
+                <b-button variant="outline-primary"
+                          @click="$router.push({name: 'table'})"
+                          type="button" v-if="$store.getters.authenticate || $jwt.token() && $jwt.isAdmin() && $route.name === 'ticket' " class="b4f_back-button">
+                    <font-awesome-icon :icon="['fas', 'chevron-left']"/>
+                    <span>&nbsp;&nbsp;{{ $ml.get('navButtons.table')}}</span>
+                </b-button>
+                <b-button variant="outline-primary"
+                          @click="logout"
+                          type="button" v-if="$store.getters.authenticate || $jwt.token()" class="b4f_logout-button">
+                    <font-awesome-icon :icon="['fas', 'power-off']"/>
+                    <span>&nbsp;&nbsp;{{ $ml.get('navButtons.logout') }}</span>
+                </b-button>
+            </div>
+        </div>
         <transition name="slide-fade" mode="out-in">
             <router-view/>
         </transition>

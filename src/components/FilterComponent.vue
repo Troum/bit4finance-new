@@ -2,6 +2,7 @@
     <b-modal id="filterModal"
              :title="$ml.get('filter.header')"
              size="lg"
+             style="z-index: 9999"
              hide-backdrop>
         <template v-slot:modal-header-close>
             <b-button class="b4f_close-filters-button">
